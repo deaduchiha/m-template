@@ -2,6 +2,19 @@
 
 A responsive subscriber page based on the supplied CircleWeb brandbook and identity kit. Deep ink, signal lime, the original vector logo, embedded Inter, Poppins, and AradNL for Persian, and English / Persian with RTL layout.
 
+## GitHub workflow
+
+See [the GitHub guide](docs/github.md) for the first push, future edits, downloading updates on your VPS, and tagged releases. GitHub Actions checks builds and tests; it does not deploy to your VPS.
+
+The deployable HTML stays tracked. Generated `preview/` and `dist/` files are ignored. Build the preview after cloning:
+
+```sh
+python3 scripts/build.py
+python3 -m venv .venv
+.venv/bin/pip install -r requirements-dev.txt
+.venv/bin/python scripts/preview.py
+```
+
 ## What is included
 
 - Actual Marzban account status, data usage, remaining allowance, expiry, and reset schedule.
@@ -32,7 +45,7 @@ Use your subscriber domain with HTTPS. This page displays subscription status, n
 
 ## Preview and development
 
-Open `preview/index.html` directly in a browser, or serve the `preview` directory. The preview uses fictional data; its import, copy, and QR actions are intentionally disabled.
+After generating it, open `preview/index.html` directly in a browser, or serve the `preview` directory. The preview uses fictional data; its import, copy, and QR actions are intentionally disabled.
 
 ```sh
 python3 scripts/build.py
@@ -43,7 +56,7 @@ python3 -m venv .venv
 python3 -m http.server 4173 --directory preview --bind 127.0.0.1
 ```
 
-Edit `src/page.html`, `src/styles.css`, and `src/app.js`, then rebuild. Build itself uses only the Python standard library. Jinja2 is required only for preview rendering and template tests.
+Edit `src/page.html`, `src/styles.css`, and `src/app.js`, then rebuild. Build itself uses only the Python standard library. Jinja2 is required only for preview rendering and template tests. Run `python3 scripts/package.py` after building to produce `dist/index.html`, `dist/circleweb-marzban.zip`, and `dist/SHA256SUMS`.
 
 Stored theme and language preferences are the only localStorage values. Subscription tokens are not stored in localStorage. Account data comes from the server-rendered page; reload it for current usage. The UI uses binary data units (1024 bytes per KB), matching Marzban’s byte-based accounting.
 

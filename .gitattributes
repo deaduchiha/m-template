@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.woff2 binary
+*.ttf binary
+*.png binary
+*.zip binary
+vendor/qrcode.min.js linguist-vendored=true
+templates/subscription/index.html linguist-generated=true
